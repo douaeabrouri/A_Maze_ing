@@ -1,3 +1,5 @@
+# A-Maze-ing default configuration file
+
 WIDTH=20
 HEIGHT=15
 ENTRY=0,0
