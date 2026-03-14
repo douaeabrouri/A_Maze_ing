@@ -5,9 +5,7 @@ import sys
 
 def parsing(filepath: str) -> Optional[dict]:
     raw: dict = {}
-    required_keys: list = [
-        "WIDTH", "HEIGHT", "ENTRY", "EXIT", "OUTPUT_FILE", "PERFECT"
-    ]
+    required_keys: list = ["WIDTH", "HEIGHT", "ENTRY", "EXIT", "OUTPUT_FILE", "PERFECT"]
     # Step 1: open the file
     try:
         with open(filepath, "r") as file:
@@ -61,8 +59,10 @@ def parsing(filepath: str) -> Optional[dict]:
     except ValueError:
         print(f"Error: ENTRY must be 'x,y' format, got '{raw['ENTRY']}'.")
         return None
-    if not (0 <= config["ENTRY"][0] < config["WIDTH"] and
-            0 <= config["ENTRY"][1] < config["HEIGHT"]):
+    if not (
+        0 <= config["ENTRY"][0] < config["WIDTH"]
+        and 0 <= config["ENTRY"][1] < config["HEIGHT"]
+    ):
         print(f"Error: ENTRY {config['ENTRY']} is outside maze bounds.")
         return None
     try:
@@ -71,8 +71,10 @@ def parsing(filepath: str) -> Optional[dict]:
     except ValueError:
         print(f"Error: EXIT must be 'x,y' format, got '{raw['EXIT']}'.")
         return None
-    if not (0 <= config["EXIT"][0] < config["WIDTH"] and
-            0 <= config["EXIT"][1] < config["HEIGHT"]):
+    if not (
+        0 <= config["EXIT"][0] < config["WIDTH"]
+        and 0 <= config["EXIT"][1] < config["HEIGHT"]
+    ):
         print(f"Error: EXIT {config['EXIT']} is outside maze bounds.")
         return None
     if config["ENTRY"] == config["EXIT"]:

@@ -25,7 +25,7 @@ class MazeGenerator:
 
         if self.perfect == False:
             self.imperfect
-            
+ 
     def imperfect(self):
             removable_walls = []
             for y in range(self.height):
