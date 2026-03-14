@@ -119,5 +119,4 @@ class MazeGenerator:
 
 
                 # Recursively continue DFS from the neighbor
-
                 self.DFS(nx, ny, visited)
