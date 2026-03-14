@@ -41,14 +41,10 @@ class MazeGenerator:
         # If the maze should NOT be perfect (i.e., allow loops)
         if self.perfect == False:
             self.imperfect
-<<<<<<< HEAD
- 
-=======
-
 
     # Creates an imperfect maze by removing additional random walls
     # This introduces loops instead of a single unique path
->>>>>>> 87d8e25c9ec6020c5ace258c092a640fa34cf133
+
     def imperfect(self):
 
         removable_walls = []
@@ -120,9 +116,8 @@ class MazeGenerator:
 
                 # Remove opposite wall in the neighbor cell
                 self.maze[ny][nx][directions[i][1]] = False
-<<<<<<< HEAD
-=======
+
 
                 # Recursively continue DFS from the neighbor
->>>>>>> 87d8e25c9ec6020c5ace258c092a640fa34cf133
+
                 self.DFS(nx, ny, visited)
