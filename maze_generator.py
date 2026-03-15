@@ -7,7 +7,6 @@ class MazeGenerator:
         self.seed = seed            # Optional seed to make random generation reproducible
         self.maze = None            # Will store the maze structure
         self.path = None            # Placeholder for storing a path (not used yet)
-
     # Main method that generates the maze
     def generate(self) -> None:
 
@@ -41,14 +40,10 @@ class MazeGenerator:
         # If the maze should NOT be perfect (i.e., allow loops)
         if self.perfect == False:
             self.imperfect
-<<<<<<< HEAD
- 
-=======
-
 
     # Creates an imperfect maze by removing additional random walls
     # This introduces loops instead of a single unique path
->>>>>>> 87d8e25c9ec6020c5ace258c092a640fa34cf133
+
     def imperfect(self):
 
         removable_walls = []
@@ -78,7 +73,7 @@ class MazeGenerator:
             # Remove the wall in the current cell
             self.maze[y_remove][x_remove][direct] = False
 
-            # Remove the corresponding wall in the neighboring cell
+            # Remove the corresponding wall in the neighboring cellhttps://chatgpt.com/c/699bf6cc-507c-8325-976d-fa9fba1dfaef
             if direct == "E":
                 self.maze[y_remove][x_remove + 1]["W"] = False
 
@@ -120,9 +115,3 @@ class MazeGenerator:
 
                 # Remove opposite wall in the neighbor cell
                 self.maze[ny][nx][directions[i][1]] = False
-<<<<<<< HEAD
-=======
-
-                # Recursively continue DFS from the neighbor
->>>>>>> 87d8e25c9ec6020c5ace258c092a640fa34cf133
-                self.DFS(nx, ny, visited)
