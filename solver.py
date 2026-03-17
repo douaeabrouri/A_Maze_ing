@@ -6,7 +6,7 @@ from collections import deque
 def solve(grid: list, entry: tuple, exit_: tuple) -> Optional[str]:
 
     height: int = len(grid)
-    width: int = len(grid[0])
+    weidth: int = len(grid[0])
     wall_mask: dict = {"N": 1, "E": 2, "S": 4, "W": 8}
     directions: dict = {
         "N": (0, -1),
@@ -26,7 +26,7 @@ def solve(grid: list, entry: tuple, exit_: tuple) -> Optional[str]:
         cell: int = int(grid[y][x], 16)
         for	direction, (dx, dy) in directions.items():
             nx, ny = x + dx, y + dy
-            if not ( 0 <= nx < width and 0 <= ny < height):
+            if not ( 0 <= nx < weidth and 0 <= ny < height):
                continue
             if cell & wall_mask[direction] != 0:
                continue

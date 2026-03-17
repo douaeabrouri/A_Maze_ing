@@ -115,3 +115,66 @@ class MazeGenerator:
 
                 # Remove opposite wall in the neighbor cell
                 self.maze[ny][nx][directions[i][1]] = False
+    def check_open_area(self, x: int, y: int) -> bool:
+        for bx in range(x - 2, x + 1):
+            for by in range(y - 2, y + 1):
+
+                if bx >= 0 and bx + 2 < self.width and by >= 0 and by + 2 < self.height:
+
+                    close = False
+
+                    for j in range(3):
+                        for i in range(3):
+
+                            if (
+                                (self.maze[by + j][bx + i]["E"] and i != 2)
+                                or (self.maze[by + j][bx + i]["S"] and j != 2)
+                            ):
+                                close = True
+                                break
+
+                        if close:
+                            break
+
+                    if not close:
+                        return True
+
+        return False
+
+
+    def imperfect(self):
+
+        removable_walls = []
+
+        for y in range(self.height):
+            for x in range(self.width):
+
+                if self.maze[y][x]["E"] and x + 1 < self.width:
+                    removable_walls.append((y, x, "E"))
+
+                if self.maze[y][x]["S"] and y + 1 < self.height:
+                    removable_walls.append((y, x, "S"))
+
+        random.shuffle(removable_walls)
+
+        for i in range(self.height * self.width * 10 // 100):
+
+            y_remove, x_remove, direct = removable_walls[i]
+
+            self.maze[y_remove][x_remove][direct] = False
+
+            if direct == "E":
+                self.maze[y_remove][x_remove + 1]["W"] = False
+
+            elif direct == "S":
+                self.maze[y_remove + 1][x_remove]["N"] = False
+
+            if self.check_open_area(x_remove, y_remove):
+
+                self.maze[y_remove][x_remove][direct] = True
+
+                if direct == "E":
+                    self.maze[y_remove][x_remove + 1]["W"] = True
+
+                elif direct == "S":
+                    self.maze[y_remove + 1][x_remove]["N"] = True
