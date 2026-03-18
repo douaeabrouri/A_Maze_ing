@@ -269,10 +269,10 @@ class MazeGenerator:
             path_cells = set()
 
         W = wall_color    # wall color
-        R = RESET         # reset color
+        R = RESET        # reset color
 
         # top border
-        print(f"{W}🌊{'🌊🌊🌊🌊' * self.width}{R}")
+        print(f"{W}🟦{'🟦🟦🟦' * self.width}{R}")
 
         for y in range(self.height):
             row_mid = ""
@@ -282,7 +282,7 @@ class MazeGenerator:
                 cell = self.maze[y][x]
 
                 # west wall
-                row_mid += f"{W}🌊{R}" if cell["W"] else " "
+                row_mid += f"{W}🟦{R}" if cell["W"] else " "
 
                 # cell content
                 if (x, y) == entry:
@@ -290,19 +290,19 @@ class MazeGenerator:
                 elif (x, y) == exit_:
                     row_mid += "🐠 "         # exit
                 elif show_path and (x, y) in path_cells:
-                    row_mid += "💎 "         # path
+                    row_mid += "💎"         # path
                 elif all(cell[d] for d in ("N", "E", "S", "W")):
                     row_mid += "🐙 "         # 42 pattern cell
                 else:
                     row_mid += "   "         # empty corridor
 
                 # bottom wall
-                row_bot += f"{W}🌊{R}"
-                row_bot += f"{W}🌊🌊🌊{R}" if cell["S"] else "   "
+                row_bot += f"{W}🟦{R}"
+                row_bot += f"{W}🟦🟦{R}" if cell["S"] else "   "
 
             # east border
-            row_mid += f"{W}🌊{R}"
-            row_bot += f"{W}🌊{R}"
+            row_mid += f"{W}🟦{R}"
+            row_bot += f"{W}🟦{R}"
 
             print(row_mid)
             print(row_bot)
@@ -422,10 +422,10 @@ def user_interaction_loop(
 
 if __name__ == "__main__":
     user_interaction_loop(
-        width=16,
-        height=16,
+        width=14,
+        height=14,
         seed=42,
         perfect=True,
         entry=(0, 0),
-        exit_=(15, 15)
+        exit_=(16, 16)
     )
