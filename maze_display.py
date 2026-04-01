@@ -145,8 +145,6 @@ class MazeGenerator:
             for d in ("N", "E", "S", "W"):
                 self.maze[y][x][d] = True
 
-    # ─── MAZE GENERATION ────────────────────────────────────
-
     def dfs(self, x: int, y: int, visited: list) -> None:
         """Recursively generate maze using Depth First Search.
 
@@ -181,8 +179,6 @@ class MazeGenerator:
                 self.maze[y][x][d] = False
                 self.maze[ny][nx][opposite] = False
                 self.dfs(nx, ny, visited)
-
-    # ─── IMPERFECT MAZE ─────────────────────────────────────
 
     def check_open_area(self, x: int, y: int) -> bool:
         """Check if removing a wall would create a 3x3 open area.
@@ -247,7 +243,6 @@ class MazeGenerator:
                     self.maze[y_r + 1][x_r]["N"] = True
 
     # ─── DISPLAY ────────────────────────────────────────────
-
     def print_maze(
         self,
         entry: tuple = (0, 0),
@@ -267,49 +262,33 @@ class MazeGenerator:
         """
         if path_cells is None:
             path_cells = set()
-
-        W = wall_color    # wall color
-        R = RESET        # reset color
-
+        W = wall_color
+        R = RESET
         # top border
-        print(f"{W}🟦{'🟦🟦🟦' * self.width}{R}")
-
+        print(f"{W}█{'████' * self.width}{R}")
         for y in range(self.height):
             row_mid = ""
             row_bot = ""
-
             for x in range(self.width):
                 cell = self.maze[y][x]
-
-                # west wall
-                row_mid += f"{W}🟦{R}" if cell["W"] else " "
-
-                # cell content
+                row_mid += f"{W}█{R}" if cell["W"] else " "
                 if (x, y) == entry:
-                    row_mid += "🧜🏼‍♀️"        # entry
+                    row_mid += "🧜🏼‍♀️"
                 elif (x, y) == exit_:
-                    row_mid += "🐠 "         # exit
-                elif show_path and (x, y) in path_cells:
-                    row_mid += "💎"         # path
+                    row_mid += "🐠 "
+                elif show_path and (x, y) in path_cells: 
+                    row_mid += "💎"
                 elif all(cell[d] for d in ("N", "E", "S", "W")):
-                    row_mid += "🐙 "         # 42 pattern cell
+                    row_mid += "🐙 "
                 else:
-                    row_mid += "   "         # empty corridor
-
-                # bottom wall
-                row_bot += f"{W}🟦{R}"
-                row_bot += f"{W}🟦🟦{R}" if cell["S"] else "   "
-
+                    row_mid += "   "
+                row_bot += f"{W}█{R}"
+                row_bot += f"{W}███{R}" if cell["S"] else "   "
             # east border
-            row_mid += f"{W}🟦{R}"
-            row_bot += f"{W}🟦{R}"
-
+            row_mid += f"{W}█{R}"
+            row_bot += f"{W}█{R}"
             print(row_mid)
             print(row_bot)
-
-
-# ─── USER INTERACTION LOOP ──────────────────────────────────
-
 def user_interaction_loop(
     width: int,
     height: int,
@@ -329,11 +308,9 @@ def user_interaction_loop(
         exit_: exit cell coordinates.
     """
     from solver import solve
-
     color_index: int = 0
-    show_path: bool = False
+    show_path: bool = True
     current_seed = seed
-
     # generate first maze
     gen = MazeGenerator(width, height, current_seed, perfect)
     gen.generate()
@@ -405,7 +382,6 @@ def user_interaction_loop(
 
         elif choice == "2":
             show_path = not show_path   # toggle show/hide
-
         elif choice == "3":
             # cycle to next color
             color_index = (color_index + 1) % len(COLORS)
@@ -427,5 +403,5 @@ if __name__ == "__main__":
         seed=42,
         perfect=True,
         entry=(0, 0),
-        exit_=(16, 16)
+        exit_=(19, 14)
     )

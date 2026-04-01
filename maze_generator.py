@@ -185,7 +185,7 @@ class MazeGenerator:
 
     def print_maze(self):
 
-        print("+" + "---+" * self.width)
+        print("█" + "████" * self.width)
 
         for y in range(self.height):
 
@@ -194,18 +194,18 @@ class MazeGenerator:
 
             for x in range(self.width):
 
-                row_mid += "|" if self.maze[y][x]["W"] else " "
+                row_mid += "█" if self.maze[y][x]["W"] else " "
 
                 if all(self.maze[y][x][d] for d in ("N", "E", "S", "W")):
-                    row_mid += " X "
+                    row_mid += "   "
                 else:
                     row_mid += "   "
 
-                row_bot += "+"
-                row_bot += "---" if self.maze[y][x]["S"] else "   "
+                row_bot += "█"
+                row_bot += "███" if self.maze[y][x]["S"] else "   "
 
-            row_mid += "|" if self.maze[y][self.width - 1]["E"] else " "
-            row_bot += "+"
+            row_mid += "█" if self.maze[y][self.width - 1]["E"] else " "
+            row_bot += "█"
 
             print(row_mid)
             print(row_bot)

@@ -52,15 +52,3 @@ def solve(grid: list, entry: tuple, exit_: tuple) -> Optional[str]:
 
     path.reverse()
     return "".join(path)
-
-if __name__ == "__main__":
-
-    grid = [
-        "913",   # row 0
-        "8A2",   # row 1
-        "C46",   # row 2
-    ]
-    entry = (0,0)
-    exit_ = (2,2)
-    result = solve(grid, entry, exit_)
-    print(result)
