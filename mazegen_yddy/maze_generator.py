@@ -2,8 +2,11 @@
 
 import random
 
+
 class MazeGenerator:
-    def __init__(self, width: int, height: int, seed: int = None, perfect: bool = True) -> None:
+    def __init__(
+        self, width: int, height: int, seed: int = None, perfect: bool = True
+    ) -> None:
         self.width = width
         self.height = height
         self.seed = seed
@@ -66,7 +69,7 @@ class MazeGenerator:
             add_horizontal(cx + 1, cy + 2)
 
     def pattern_42(self):
-        for (x, y) in self.pattern_cells:
+        for x, y in self.pattern_cells:
             for d in ("N", "E", "S", "W"):
                 self.maze[y][x][d] = True
 
@@ -85,7 +88,7 @@ class MazeGenerator:
                 ("N", "S", 0, -1),
                 ("S", "N", 0, 1),
                 ("E", "W", 1, 0),
-                ("W", "E", -1, 0)
+                ("W", "E", -1, 0),
             ]
 
             random.shuffle(directions)
@@ -127,9 +130,8 @@ class MazeGenerator:
                     for j in range(3):
                         for i in range(3):
 
-                            if (
-                                (self.maze[by + j][bx + i]["E"] and i != 2)
-                                or (self.maze[by + j][bx + i]["S"] and j != 2)
+                            if (self.maze[by + j][bx + i]["E"] and i != 2) or (
+                                self.maze[by + j][bx + i]["S"] and j != 2
                             ):
                                 close = True
                                 break
@@ -141,7 +143,6 @@ class MazeGenerator:
                         return True
 
         return False
-
 
     def imperfect(self):
 
@@ -180,6 +181,35 @@ class MazeGenerator:
                 elif direct == "S":
                     self.maze[y_remove + 1][x_remove]["N"] = True
 
+    # PRINT MAZE
+
+    def print_maze(self):
+
+        print("█" + "████" * self.width)
+
+        for y in range(self.height):
+
+            row_mid = ""
+            row_bot = ""
+
+            for x in range(self.width):
+
+                row_mid += "█" if self.maze[y][x]["W"] else " "
+
+                if all(self.maze[y][x][d] for d in ("N", "E", "S", "W")):
+                    row_mid += "   "
+                else:
+                    row_mid += "   "
+
+                row_bot += "█"
+                row_bot += "███" if self.maze[y][x]["S"] else "   "
+
+            row_mid += "█" if self.maze[y][self.width - 1]["E"] else " "
+            row_bot += "█"
+
+            print(row_mid)
+            print(row_bot)
+
     def generate_hex_values(self) -> list[list]:
         hex_values = []
 
@@ -188,8 +218,23 @@ class MazeGenerator:
         S_value = 4
         W_value = 8
 
-        hex_format = [ "0", "1", "2", "3", "4",
-            "5","6","7","8","9","A","B","C","D","E","F"
+        hex_format = [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
         ]
         for y in range(self.height):
             hex_row = []
@@ -206,3 +251,16 @@ class MazeGenerator:
                 hex_row.append(hex_format[total])
             hex_values.append(hex_row)
         return hex_values
+
+    def write_output(self, filepath: str, entry: tuple, exit: tuple):
+        hex_values = self.generate_hex_values()
+        with open(filepath, "w") as f:
+            for y in range(self.height):
+                for x in range(self.width):
+                    f.write(hex_values[y][x])
+                f.write("\n")
+            f.write("\n")
+            f.write(str(entry) + "\n")
+            f.write(str(exit) + "\n")
+
+

@@ -1,5 +1,5 @@
 from config_parser import parsing
-from maze_generator import MazeGenerator
+from mazegen_yddy import MazeGenerator
 from maze_solver import solve
 from maze_display import user_interaction_loop
 import sys

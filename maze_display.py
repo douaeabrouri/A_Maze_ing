@@ -3,7 +3,7 @@
 import random
 import os
 from typing import Optional
-from maze_generator import MazeGenerator
+from mazegen_yddy import MazeGenerator
 from maze_solver import solve
 
 COLORS = [
