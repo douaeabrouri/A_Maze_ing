@@ -100,16 +100,3 @@ def parsing(filepath: str) -> Optional[dict]:
     else:
         config["SEED"] = None
     return config
-
-
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python3 config_parser.py config.txt")
-        sys.exit(1)
-    result = parsing(sys.argv[1])
-    if result:
-        print("Config loaded successfully!")
-        for k, v in result.items():
-            print(f"  {k} = {v}")
-    else:
-        sys.exit(1)

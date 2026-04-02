@@ -35,7 +35,6 @@ def solve(grid: list, entry: tuple, exit_: tuple) -> Optional[str]:
             visited.add((nx,ny))
             came_from[(nx, ny)] = ((x , y), direction)
             queue.append((nx, ny))
-            # print(cell)
         
     if exit_ not in came_from:
         print("ERROR, no path found between wntry and exit")
@@ -44,9 +43,6 @@ def solve(grid: list, entry: tuple, exit_: tuple) -> Optional[str]:
     current: tuple = exit_     
     while came_from.get(current) is not None:
         parent, direction = came_from[current]
-        # print(current)
-        # print(f"parent = {parent}\n"
-        #       f"current = {direction}")
         path.append(direction)
         current = parent
 
