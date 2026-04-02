@@ -59,11 +59,11 @@ def print_maze(
 
             # cell content ← exactly 2 chars
             if (x, y) == entry:
-                row_mid += "🐇"        # magenta EN
+                row_mid += "🦋"        # magenta EN
             elif (x, y) == exit_:
-                row_mid += "🥕"        # red EX
+                row_mid += "🌺"        # red EX
             elif show_path and (x, y) in path_cells:
-                row_mid += "\033[43m  \033[0m"        # yellow background
+                row_mid += "🦋"        # yellow background
             elif all(cell[d] for d in ("N", "E", "S", "W")):
                 row_mid += f"{W}▓▓{R}"                # 42 pattern
             else:
@@ -135,9 +135,6 @@ def user_interaction_loop(
     path_str = solve(hex_grid, entry, exit_)
     path_cells = path_to_cells(path_str, entry)
     while True:
-        # clear screen
-        os.system("clear")
-        # print maze
         print_maze(
             maze=gen.maze,
             width=width,
@@ -148,14 +145,12 @@ def user_interaction_loop(
             show_path=show_path,
             wall_color=COLORS[color_index]
         )
-        # print menu
         print(f"\n{COLORS[color_index]}=== A-Maze-ing ==={RESET}")
         print("1. Re-generate a new maze")
         print("2. Show/Hide path")
         print(f"3. Change wall color"
               f" (current: {COLORS[color_index]}"
               f"{COLOR_NAMES[color_index]}{RESET})")
-
         choice = input("Choice (1-4): ").strip()
         if choice == "1":
             # regenerate with new random seed
@@ -167,16 +162,21 @@ def user_interaction_loop(
             path_cells = path_to_cells(path_str, entry)
             show_path = False
         elif choice == "2":
+            os.system("clear")
             show_path = not show_path
         elif choice == "3":
-            # cycle to next color
             color_index = (color_index + 1) % len(COLORS)
         elif choice == "4":
-            print("Bye! 🌊")
+            try:
+                with open("butterfly.txt", "r") as f:
+                    butterfly = f.read()
+                print("\033[35m" + butterfly + "\033[0m")
+            except FileNotFoundError:
+                print("\033[35m 🦋 \033[0m")
             break
         else:
             print("Invalid choice, please enter 1-4.")
-
+            break
 if __name__ == "__main__":
     user_interaction_loop(
         width=16,
