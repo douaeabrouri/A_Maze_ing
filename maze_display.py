@@ -151,6 +151,7 @@ def user_interaction_loop(
         print(f"3. Change wall color"
               f" (current: {COLORS[color_index]}"
               f"{COLOR_NAMES[color_index]}{RESET})")
+        print("4. Quit")
         choice = input("Choice (1-4): ").strip()
         if choice == "1":
             # regenerate with new random seed
