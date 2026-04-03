@@ -9,7 +9,6 @@ from mazegen_yddy import MazeGenerator
 from maze_solver import solve
 
 COLORS = [
-    "\033[0m",
     "\033[34m",
     "\033[31m",
     "\033[32m",
@@ -17,7 +16,7 @@ COLORS = [
     "\033[37m",
 ]
 RESET = "\033[0m"
-COLOR_NAMES = ["white", "Blue", "Red", "Green", "Yellow", "White"]
+COLOR_NAMES = ["Blue", "Red", "Green", "Yellow", "White"]
 
 
 def print_maze(
