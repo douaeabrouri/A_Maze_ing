@@ -141,12 +141,7 @@ class MazeGenerator:
 
         return False
 
-<<<<<<< HEAD:mazegen_yddy/maze_generator.py
-    def imperfect(self):
-=======
-
     def imperfect(self) -> None:
->>>>>>> ...:maze_generator.py
 
         removable_walls = []
 
