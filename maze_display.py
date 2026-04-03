@@ -2,6 +2,8 @@
 
 import random
 import os
+import signal
+import sys
 from typing import Optional
 from mazegen_yddy import MazeGenerator
 from maze_solver import solve
@@ -106,6 +108,11 @@ def path_to_cells(
         cells.add((x, y))
     return cells
 
+def handle_sigtstp(signum: int, frame: object) -> None:
+    os.system("clear")
+    print("\033[31m Program suspended! ⛔\033[31m")
+    sys.exit(0)
+
 def user_interaction_loop(
     width: int,
     height: int,
@@ -124,6 +131,8 @@ def user_interaction_loop(
         entry: entry cell coordinates.
         exit_: exit cell coordinates.
     """
+    # handle Ctrl+Z
+    signal.signal(signal.SIGTSTP, handle_sigtstp)
     color_index: int = 0
     show_path: bool = False
     current_seed = seed
@@ -135,26 +144,37 @@ def user_interaction_loop(
     path_str = solve(hex_grid, entry, exit_)
     path_cells = path_to_cells(path_str, entry)
     while True:
-        print_maze(
-            maze=gen.maze,
-            width=width,
-            height=height,
-            entry=entry,
-            exit_=exit_,
-            path_cells=path_cells,
-            show_path=show_path,
-            wall_color=COLORS[color_index]
-        )
-        print(f"\n{COLORS[color_index]}=== A-Maze-ing ==={RESET}")
-        print("1. Re-generate a new maze")
-        print("2. Show/Hide path")
-        print(f"3. Change wall color"
-              f" (current: {COLORS[color_index]}"
-              f"{COLOR_NAMES[color_index]}{RESET})")
-        print("4. Quit")
-        choice = input("Choice (1-4): ").strip()
+        try:
+            print_maze(
+                maze=gen.maze,
+                width=width,
+                height=height,
+                entry=entry,
+                exit_=exit_,
+                path_cells=path_cells,
+                show_path=show_path,
+                wall_color=COLORS[color_index]
+            )
+            print(f"\n{COLORS[color_index]}=== A-Maze-ing ==={RESET}")
+            print("1. Re-generate a new maze")
+            print("2. Show/Hide path")
+            print(f"3. Change wall color"
+                  f" (current: {COLORS[color_index]}"
+                  f"{COLOR_NAMES[color_index]}{RESET})")
+            print("4. Quit")
+            choice = input("Choice (1-4): ").strip()
+        except KeyboardInterrupt:
+            os.system("clear")
+            print("\033[31m\n Interrupted! Bye bye 🚫\033[31m")
+            sys.exit(0)
+        except EOFError:
+            os.system("clear")
+            print("\033[31m\n EOF detected!🚫\033[31m")
+            sys.exit(0)
+
         if choice == "1":
             # regenerate with new random seed
+            os.system("clear")
             current_seed = random.randint(0, 99999)
             gen = MazeGenerator(width, height, current_seed, perfect)
             gen.generate()
@@ -166,12 +186,13 @@ def user_interaction_loop(
             os.system("clear")
             show_path = not show_path
         elif choice == "3":
+            os.system("clear")
             color_index = (color_index + 1) % len(COLORS)
         elif choice == "4":
             try:
                 with open("butterfly.txt", "r") as f:
                     butterfly = f.read()
-                print("\033[35m" + butterfly + "\033[0m")
+                print("\033[34m" + butterfly + "\033[0m")
             except FileNotFoundError:
                 print("\033[35m 🦋 \033[0m")
             break

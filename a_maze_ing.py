@@ -1,3 +1,5 @@
+#!/usr/bin/env python3 
+
 from config_parser import parsing
 from mazegen_yddy import MazeGenerator
 from maze_solver import solve

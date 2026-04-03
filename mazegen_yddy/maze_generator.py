@@ -44,7 +44,6 @@ class MazeGenerator:
         self.pattern_42()
 
     # 42 PATTERN
-
     def build_pattern_cells(self):
         if self.width >= 12 and self.height >= 9:
             cx = self.width // 2
@@ -72,9 +71,7 @@ class MazeGenerator:
         for x, y in self.pattern_cells:
             for d in ("N", "E", "S", "W"):
                 self.maze[y][x][d] = True
-
     # MAZE GENERATION
-
     def DFS(self, start_x: int, start_y: int, visited: list[list]) -> None:
 
         stack = [(start_x, start_y)]
@@ -144,18 +141,26 @@ class MazeGenerator:
 
         return False
 
+<<<<<<< HEAD:mazegen_yddy/maze_generator.py
     def imperfect(self):
+=======
+
+    def imperfect(self) -> None:
+>>>>>>> ...:maze_generator.py
 
         removable_walls = []
 
         for y in range(self.height):
             for x in range(self.width):
-
+                if (x, y) in self.pattern_cells:
+                    continue
                 if self.maze[y][x]["E"] and x + 1 < self.width:
-                    removable_walls.append((y, x, "E"))
+                    if (x + 1, y) not in self.pattern_cells:
+                        removable_walls.append((y, x, "E"))
 
                 if self.maze[y][x]["S"] and y + 1 < self.height:
-                    removable_walls.append((y, x, "S"))
+                    if (x, y + 1) not in self.pattern_cells:
+                        removable_walls.append((y, x, "S"))
 
         random.shuffle(removable_walls)
 
