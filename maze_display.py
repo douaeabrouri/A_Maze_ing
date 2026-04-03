@@ -9,7 +9,7 @@ from mazegen_yddy import MazeGenerator
 from maze_solver import solve
 
 COLORS = [
-    "\033[34m",
+    "\033[38;2;229;208;255m",
     "\033[31m",
     "\033[32m",
     "\033[33m",
