@@ -5,7 +5,7 @@ import os
 import signal
 import sys
 from typing import Optional
-from mazegen_yddy import MazeGenerator
+from mazegen import MazeGenerator
 from maze_solver import solve
 
 COLORS = [
