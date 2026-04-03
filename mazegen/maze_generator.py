@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import random
-from typing import List
+from typing import Optional
 
 
 class MazeGenerator:
@@ -15,7 +15,7 @@ class MazeGenerator:
         self.width = width
         self.height = height
         self.seed = seed
-        self.maze: List = []
+        self.maze: Optional[list[list[dict[str, bool]]]] = None
         self.path = None
         self.perfect = perfect
         self.pattern_cells: set = set()
@@ -73,12 +73,16 @@ class MazeGenerator:
             add_horizontal(cx + 1, cy + 2)
 
     def pattern_42(self) -> None:
+        if self.maze is None:
+            raise ValueError("Maze not generated yet")
         for x, y in self.pattern_cells:
             for d in ("N", "E", "S", "W"):
                 self.maze[y][x][d] = True
 
     # MAZE GENERATION
     def DFS(self, start_x: int, start_y: int, visited: list[list]) -> None:
+        if self.maze is None:
+            raise ValueError("Maze not generated yet")
 
         stack = [(start_x, start_y)]
 
@@ -123,6 +127,8 @@ class MazeGenerator:
     # IMPERFECT MAZE OPTION
 
     def check_open_area(self, x: int, y: int) -> bool:
+        if self.maze is None:
+            raise ValueError("Maze not generated yet")
         for bx in range(x - 2, x + 1):
             for by in range(y - 2, y + 1):
 
@@ -149,6 +155,8 @@ class MazeGenerator:
         return False
 
     def imperfect(self) -> None:
+        if self.maze is None:
+            raise ValueError("Maze not generated yet")
 
         removable_walls = []
 
@@ -191,6 +199,8 @@ class MazeGenerator:
     # PRINT MAZE
 
     def print_maze(self) -> None:
+        if self.maze is None:
+            raise ValueError("Maze not generated yet")
 
         print("█" + "████" * self.width)
 
@@ -218,6 +228,9 @@ class MazeGenerator:
             print(row_bot)
 
     def generate_hex_values(self) -> list[list]:
+        if self.maze is None:
+            raise ValueError("Maze not generated yet")
+
         hex_values = []
 
         N_value = 1
@@ -260,6 +273,9 @@ class MazeGenerator:
         return hex_values
 
     def write_output(self, filepath: str, entry: tuple, exit: tuple) -> None:
+        if self.maze is None:
+            raise ValueError("Maze not generated yet")
+
         hex_values = self.generate_hex_values()
         with open(filepath, "w") as f:
             for y in range(self.height):

@@ -20,7 +20,7 @@ COLOR_NAMES = ["purple", "Red", "Green", "Yellow", "White"]
 
 
 def print_maze(
-    maze: list,
+    maze: Optional[list[list[dict[str, bool]]]],
     width: int,
     height: int,
     entry: tuple = (0, 0),
