@@ -71,6 +71,7 @@ class MazeGenerator:
         for x, y in self.pattern_cells:
             for d in ("N", "E", "S", "W"):
                 self.maze[y][x][d] = True
+
     # MAZE GENERATION
     def DFS(self, start_x: int, start_y: int, visited: list[list]) -> None:
 
@@ -120,7 +121,8 @@ class MazeGenerator:
         for bx in range(x - 2, x + 1):
             for by in range(y - 2, y + 1):
 
-                if bx >= 0 and bx + 2 < self.width and by >= 0 and by + 2 < self.height:
+                if bx >= 0 and bx + 2 < self.width and by >= 0 \
+                   and by + 2 < self.height:
 
                     close = False
 
@@ -240,13 +242,13 @@ class MazeGenerator:
             hex_row = []
             for x in range(self.width):
                 total = 0
-                if self.maze[y][x]["N"] == True:
+                if self.maze[y][x]["N"] is True:
                     total += N_value
-                if self.maze[y][x]["E"] == True:
+                if self.maze[y][x]["E"] is True:
                     total += E_value
-                if self.maze[y][x]["S"] == True:
+                if self.maze[y][x]["S"] is True:
                     total += S_value
-                if self.maze[y][x]["W"] == True:
+                if self.maze[y][x]["W"] is True:
                     total += W_value
                 hex_row.append(hex_format[total])
             hex_values.append(hex_row)
@@ -262,5 +264,3 @@ class MazeGenerator:
             f.write("\n")
             f.write(str(entry) + "\n")
             f.write(str(exit) + "\n")
-
-

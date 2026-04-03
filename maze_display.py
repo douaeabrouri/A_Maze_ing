@@ -9,6 +9,7 @@ from mazegen_yddy import MazeGenerator
 from maze_solver import solve
 
 COLORS = [
+    "\033[0m",
     "\033[34m",
     "\033[31m",
     "\033[32m",
@@ -16,7 +17,8 @@ COLORS = [
     "\033[37m",
 ]
 RESET = "\033[0m"
-COLOR_NAMES = ["Blue", "Red", "Green", "Yellow", "White"]
+COLOR_NAMES = ["white", "Blue", "Red", "Green", "Yellow", "White"]
+
 
 def print_maze(
     maze: list,
@@ -26,7 +28,7 @@ def print_maze(
     exit_: tuple = (-1, -1),
     path_cells: Optional[set] = None,
     show_path: bool = False,
-    wall_color: str = "\033[34m"
+    wall_color: str = "\033[34m",
 ) -> None:
     """Print the maze visually in the terminal.
 
@@ -61,15 +63,15 @@ def print_maze(
 
             # cell content ← exactly 2 chars
             if (x, y) == entry:
-                row_mid += "🦋"        # magenta EN
+                row_mid += "🦋"  # magenta EN
             elif (x, y) == exit_:
-                row_mid += "🌺"        # red EX
+                row_mid += "🌺"  # red EX
             elif show_path and (x, y) in path_cells:
-                row_mid += "🦋"        # yellow background
+                row_mid += "🦋"  # yellow background
             elif all(cell[d] for d in ("N", "E", "S", "W")):
-                row_mid += f"{W}▓▓{R}"                # 42 pattern
+                row_mid += f"{W}▓▓{R}"  # 42 pattern
             else:
-                row_mid += "  "                       # empty ← 2 spaces!
+                row_mid += "  "  # empty ← 2 spaces!
 
             # south wall ← exactly 2 chars
             row_bot += f"{W}██{R}"
@@ -81,17 +83,15 @@ def print_maze(
 
         print(row_mid)
         print(row_bot)
-        
-def path_to_cells(
-    path: Optional[str],
-    start: tuple
-) -> set:
+
+
+def path_to_cells(path: Optional[str], start: tuple) -> set:
     """Convert path string like 'EESS' to set of (x,y) cells.
- 
+
     Args:
         path: direction string.
         start: starting cell.
- 
+
     Returns:
         Set of (x, y) tuples on the path.
     """
@@ -108,10 +108,12 @@ def path_to_cells(
         cells.add((x, y))
     return cells
 
+
 def handle_sigtstp(signum: int, frame: object) -> None:
     os.system("clear")
     print("\033[31m Program suspended! ⛔\033[31m")
     sys.exit(0)
+
 
 def user_interaction_loop(
     width: int,
@@ -119,7 +121,7 @@ def user_interaction_loop(
     seed: Optional[int],
     perfect: bool,
     entry: tuple,
-    exit_: tuple
+    exit_: tuple,
 ) -> None:
     """Run the interactive maze display loop.
 
@@ -153,14 +155,16 @@ def user_interaction_loop(
                 exit_=exit_,
                 path_cells=path_cells,
                 show_path=show_path,
-                wall_color=COLORS[color_index]
+                wall_color=COLORS[color_index],
             )
-            print(f"\n{COLORS[color_index]}=== A-Maze-ing ==={RESET}")
+            print(f"\n✨{COLORS[color_index]}=== A-Maze-ing ==={RESET}✨")
             print("1. Re-generate a new maze")
             print("2. Show/Hide path")
-            print(f"3. Change wall color"
-                  f" (current: {COLORS[color_index]}"
-                  f"{COLOR_NAMES[color_index]}{RESET})")
+            print(
+                f"3. Change wall color"
+                f" (current: {COLORS[color_index]}"
+                f"{COLOR_NAMES[color_index]}{RESET})"
+            )
             print("4. Quit")
             choice = input("Choice (1-4): ").strip()
         except KeyboardInterrupt:
@@ -199,12 +203,3 @@ def user_interaction_loop(
         else:
             print("Invalid choice, please enter 1-4.")
             break
-if __name__ == "__main__":
-    user_interaction_loop(
-        width=16,
-        height=16,
-        seed=42,
-        perfect=True,
-        entry=(0, 0),
-        exit_=(15, 15)
-    )

@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 from typing import Optional
-import sys
 
 
 def parsing(filepath: str) -> Optional[dict]:
     raw: dict = {}
-    required_keys: list = ["WIDTH", "HEIGHT", "ENTRY", "EXIT", "OUTPUT_FILE", "PERFECT"]
+    required_keys: list = [
+        "WIDTH",
+        "HEIGHT",
+        "ENTRY",
+        "EXIT",
+        "OUTPUT_FILE",
+        "PERFECT"
+    ]
     # Step 1: open the file
     try:
         with open(filepath, "r") as file:
@@ -44,14 +50,16 @@ def parsing(filepath: str) -> Optional[dict]:
         if config["WIDTH"] <= 0:
             raise ValueError
     except ValueError:
-        print(f"Error: WIDTH must be a positive integer, got '{raw['WIDTH']}'.")
+        print(f"Error: WIDTH must be a positive"
+              f" integer, got '{raw['WIDTH']}'.")
         return None
     try:
         config["HEIGHT"] = int(raw["HEIGHT"])
         if config["HEIGHT"] <= 0:
             raise ValueError
     except ValueError:
-        print(f"Error: HEIGHT must be positive integer, got '{raw['HEIGHT']}'.")
+        print(f"Error: HEIGHT must be positive "
+              f"integer, got '{raw['HEIGHT']}'.")
         return None
     try:
         i, j = raw["ENTRY"].split(",")
