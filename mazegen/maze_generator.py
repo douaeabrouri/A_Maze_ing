@@ -1,19 +1,24 @@
 #!/usr/bin/env python3
 
 import random
+from typing import List
 
 
 class MazeGenerator:
     def __init__(
-        self, width: int, height: int, seed: int = None, perfect: bool = True
+        self,
+        width: int,
+        height: int,
+        seed: None | int = 0,
+        perfect: bool = True
     ) -> None:
         self.width = width
         self.height = height
         self.seed = seed
-        self.maze = None
+        self.maze: List = []
         self.path = None
         self.perfect = perfect
-        self.pattern_cells = set()
+        self.pattern_cells: set = set()
 
     def generate(self) -> None:
         if self.seed is not None:
@@ -44,16 +49,16 @@ class MazeGenerator:
         self.pattern_42()
 
     # 42 PATTERN
-    def build_pattern_cells(self):
+    def build_pattern_cells(self) -> None:
         if self.width >= 12 and self.height >= 9:
             cx = self.width // 2
             cy = self.height // 2
 
-            def add_vertical(x, y):
+            def add_vertical(x: int, y: int) -> None:
                 for i in range(3):
                     self.pattern_cells.add((x, y + i))
 
-            def add_horizontal(x, y):
+            def add_horizontal(x: int, y: int) -> None:
                 for i in range(3):
                     self.pattern_cells.add((x + i, y))
 
@@ -67,7 +72,7 @@ class MazeGenerator:
             add_horizontal(cx + 1, cy)
             add_horizontal(cx + 1, cy + 2)
 
-    def pattern_42(self):
+    def pattern_42(self) -> None:
         for x, y in self.pattern_cells:
             for d in ("N", "E", "S", "W"):
                 self.maze[y][x][d] = True
@@ -185,7 +190,7 @@ class MazeGenerator:
 
     # PRINT MAZE
 
-    def print_maze(self):
+    def print_maze(self) -> None:
 
         print("█" + "████" * self.width)
 
@@ -254,7 +259,7 @@ class MazeGenerator:
             hex_values.append(hex_row)
         return hex_values
 
-    def write_output(self, filepath: str, entry: tuple, exit: tuple):
+    def write_output(self, filepath: str, entry: tuple, exit: tuple) -> None:
         hex_values = self.generate_hex_values()
         with open(filepath, "w") as f:
             for y in range(self.height):

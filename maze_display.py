@@ -195,7 +195,8 @@ def user_interaction_loop(
             try:
                 with open("butterfly.txt", "r") as f:
                     butterfly = f.read()
-                print("\033[38;2;229;208;255m" + butterfly + "\033[38;2;229;208;255m")
+                print("\033[38;2;229;208;255m\
+" + butterfly + "\033[38;2;229;208;255m")
             except FileNotFoundError:
                 print("\033[35m 🦋 \033[0m")
             break

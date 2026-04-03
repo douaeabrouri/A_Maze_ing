@@ -26,4 +26,4 @@ def validate_walls(grid: list) -> bool:
                         f" vs ({x},{y + 1}) West"
                     )
                     return False
-        return True
+    return True
