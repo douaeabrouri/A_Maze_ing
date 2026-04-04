@@ -41,6 +41,8 @@ def print_maze(
         show_path: if True, display the solution path.
         wall_color: ANSI color code for walls.
     """
+    if maze is None:
+        raise ValueError("Maze not generated yet")
     if path_cells is None:
         path_cells = set()
 

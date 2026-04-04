@@ -4,11 +4,12 @@ from config_parser import parsing
 from maze_display import user_interaction_loop
 import sys
 
-config = parsing("config.txt")
-if config is None:
-    sys.exit(1)
 
 if __name__ == "__main__":
+    config = parsing("config.txt")
+    if config is None:
+        sys.exit(0)
+
     user_interaction_loop(
         width=config["WIDTH"],
         height=config["HEIGHT"],
