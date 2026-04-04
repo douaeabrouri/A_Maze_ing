@@ -110,7 +110,7 @@ def path_to_cells(path: Optional[str], start: tuple) -> set:
 
 def handle_sigtstp(signum: int, frame: object) -> None:
     os.system("clear")
-    print("\033[31m Program suspended! ⛔\033[31m")
+    print("\033[31m Program suspended!⛔\033[31m")
     sys.exit(0)
 
 
@@ -168,7 +168,7 @@ def user_interaction_loop(
             choice = input("Choice (1-4): ").strip()
         except KeyboardInterrupt:
             os.system("clear")
-            print("\033[31m\n Interrupted! Bye bye 🚫\033[31m")
+            print("\033[31m\n Interrupted!🚫\033[31m")
             sys.exit(0)
         except EOFError:
             os.system("clear")
@@ -200,5 +200,5 @@ def user_interaction_loop(
                 print("\033[35m 🦋 \033[0m")
             break
         else:
-            print("Invalid choice, please enter 1-4.")
-            break
+            os.system("clear")
+            print("\033[31mInvalid choice, please enter 1-4!!!!!\n\033[31m")

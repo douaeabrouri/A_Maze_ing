@@ -41,6 +41,7 @@ class MazeGenerator:
             self.imperfect()
 
         # finally close the pattern cells
+	
         self.pattern_42()
 
     # 42 PATTERN

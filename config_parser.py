@@ -92,9 +92,9 @@ def parsing(filepath: str) -> Optional[dict]:
     if not config["OUTPUT_FILE"]:
         print("Error: OUTPUT_FILE cannot be empty.")
         return None
-    if raw["PERFECT"].lower() == "true":
+    if raw["PERFECT"].lower() == "true" or raw["PERFECT"].lower() == "1":
         config["PERFECT"] = True
-    elif raw["PERFECT"].lower() == "false":
+    elif raw["PERFECT"].lower() == "false" or raw["PERFECT"].lower() == "0":
         config["PERFECT"] = False
     else:
         print(f"Error: PERFECT must be True or False, got '{raw['PERFECT']}'.")
