@@ -285,3 +285,13 @@ class MazeGenerator:
             f.write("\n")
             f.write(str(entry) + "\n")
             f.write(str(exit) + "\n")
+
+    def generate_hex_maze(self) -> None:
+        hex_values = self.generate_hex_values()
+        f = open("maze.txt", "w")
+        for x in range(self.height):
+            for y in range(self.width):
+                f.write(hex_values[x][y])
+            f.write("\n")
+        f.close()
+        

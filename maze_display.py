@@ -123,7 +123,7 @@ def user_interaction_loop(
     perfect: bool,
     entry: tuple,
     exit_: tuple,
-) -> None:
+) -> MazeGenerator:
     """Run the interactive maze display loop.
 
     Args:
@@ -205,3 +205,4 @@ def user_interaction_loop(
         else:
             print("Invalid choice, please enter 1-4.")
             break
+    return gen
