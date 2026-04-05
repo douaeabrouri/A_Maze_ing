@@ -7,9 +7,10 @@ import sys
 
 
 if __name__ == "__main__":
+
     config = parsing("config.txt")
     if config is None:
-       sys.exit(0)
+        sys.exit(0)
 
     gen = user_interaction_loop(
         width=config["WIDTH"],

@@ -72,6 +72,7 @@ def print_maze(
         print(row_mid)
         print(row_bot)
 
+
 def path_to_cells(path: Optional[str], start: tuple) -> set:
     """Convert path string like 'EESS' to set of (x,y) cells.
 
@@ -95,10 +96,12 @@ def path_to_cells(path: Optional[str], start: tuple) -> set:
         cells.add((x, y))
     return cells
 
+
 def handle_sigtstp(signum: int, frame: object) -> None:
     os.system("clear")
     print("\033[31m Program suspended!⛔\033[31m")
     sys.exit(0)
+
 
 def user_interaction_loop(
     width: int,

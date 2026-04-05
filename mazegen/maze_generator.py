@@ -45,9 +45,11 @@ class MazeGenerator:
         if self.width >= 12 and self.height >= 9:
             cx = self.width // 2
             cy = self.height // 2
+
             def add_vertical(x: int, y: int) -> None:
                 for i in range(3):
                     self.pattern_cells.add((x, y + i))
+
             def add_horizontal(x: int, y: int) -> None:
                 for i in range(3):
                     self.pattern_cells.add((x + i, y))
@@ -110,7 +112,7 @@ class MazeGenerator:
                     break
             if not moved:
                 stack.pop()
-    # IMPERFECT MAZE OPTION
+
     def check_open_area(self, x: int, y: int) -> bool:
         if self.maze is None:
             raise ValueError("Maze not generated yet")
@@ -173,6 +175,7 @@ class MazeGenerator:
 
                 elif direct == "S":
                     self.maze[y_remove + 1][x_remove]["N"] = True
+
     def generate_hex_values(self) -> list[list]:
         if self.maze is None:
             raise ValueError("Maze not generated yet")
