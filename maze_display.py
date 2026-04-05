@@ -5,7 +5,7 @@ import os
 import signal
 import sys
 from typing import Optional
-from mazegen_yddy import MazeGenerator
+from mazegen import MazeGenerator
 from maze_solver import solve
 
 COLORS = [
@@ -20,7 +20,7 @@ COLOR_NAMES = ["purple", "Red", "Green", "Yellow", "White"]
 
 
 def print_maze(
-    maze: list,
+    maze: Optional[list[list[dict[str, bool]]]],
     width: int,
     height: int,
     entry: tuple = (0, 0),
@@ -41,6 +41,8 @@ def print_maze(
         show_path: if True, display the solution path.
         wall_color: ANSI color code for walls.
     """
+    if maze is None:
+        raise ValueError("Maze not generated yet")
     if path_cells is None:
         path_cells = set()
 
@@ -195,7 +197,8 @@ def user_interaction_loop(
             try:
                 with open("butterfly.txt", "r") as f:
                     butterfly = f.read()
-                print("\033[38;2;229;208;255m" + butterfly + "\033[38;2;229;208;255m")
+                print("\033[38;2;229;208;255m\
+" + butterfly + "\033[38;2;229;208;255m")
             except FileNotFoundError:
                 print("\033[35m 🦋 \033[0m")
             break

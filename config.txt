@@ -1,9 +1,26 @@
 # A-Maze-ing default configuration file
 
+<<<<<<< HEAD
 WIDTH=5
 HEIGHT=5
 ENTRY=0,0
+=======
+WIDTH=15
+HEIGHT=15
+ENTRY=1,0
+>>>>>>> 13ee1002a4bff7839bc9c1b94a4416a7b11b745b
 SEED=42
-EXIT=19,14
+EXIT=3,3
 OUTPUT_FILE=maze.txt
+<<<<<<< HEAD
 PERFECT=0
+=======
+PERFECT=False
+
+#width height 1
+#exit bara lmaze
+#sda9 kolxi s7i7 !!!!
+#output file makaynxi
+#seed 5so yb9a fix mnin d3ml 1
+#make run kayw9a3 fih error mli kikon xi 7aja 8alta
+>>>>>>> 13ee1002a4bff7839bc9c1b94a4416a7b11b745b

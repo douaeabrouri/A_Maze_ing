@@ -9,6 +9,7 @@ run:
 clean:
 	@find . -type d -name "__pycache__" -exec rm -rf {} +
 	@rm -rf .mypy_cache
+	@rm -rf mazegen.egg-info
 
 debug:
 	@python3 -m pdb a_maze_ing.py config.txt
@@ -19,4 +20,4 @@ lint:
 
 build:
 	@pip install build
-	@python3 -m build
+	@python3 -m build --sdist

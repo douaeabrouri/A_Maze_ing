@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 
 [project]
-name = "mazegen_yddy"
+name = "mazegen"
 version = "1.0.0"
 description = "A maze generator library"
 requires-python = ">=3.10"

@@ -1,7 +1,0 @@
-pyproject.toml
-mazegen_yddy/__init__.py
-mazegen_yddy/maze_generator.py
-mazegen_yddy.egg-info/PKG-INFO
-mazegen_yddy.egg-info/SOURCES.txt
-mazegen_yddy.egg-info/dependency_links.txt
-mazegen_yddy.egg-info/top_level.txt
