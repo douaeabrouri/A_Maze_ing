@@ -9,20 +9,20 @@ class MazeGenerator:
         self,
         width: int,
         height: int,
-        seed: None | int = 0,
+        # seed: None | int = 0,
         perfect: bool = True
     ) -> None:
         self.width = width
         self.height = height
-        self.seed = seed
+        # self.seed = seed
         self.maze: Optional[list[list[dict[str, bool]]]] = None
         self.path = None
         self.perfect = perfect
         self.pattern_cells: set = set()
 
     def generate(self) -> None:
-        if self.seed is not None:
-            random.seed(self.seed)
+        # if self.seed is not None:
+        #     random.seed(self.seed)
 
         self.maze = []
         visited = []
@@ -286,3 +286,13 @@ class MazeGenerator:
             f.write("\n")
             f.write(str(entry) + "\n")
             f.write(str(exit) + "\n")
+
+    def generate_hex_maze(self) -> None:
+        hex_values = self.generate_hex_values()
+        f = open("maze.txt", "w")
+        for x in range(self.height):
+            for y in range(self.width):
+                f.write(hex_values[x][y])
+            f.write("\n")
+        f.close()
+        

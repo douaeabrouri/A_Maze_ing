@@ -119,17 +119,16 @@ def handle_sigtstp(signum: int, frame: object) -> None:
 def user_interaction_loop(
     width: int,
     height: int,
-    seed: Optional[int],
+    # seed: Optional[int],
     perfect: bool,
     entry: tuple,
     exit_: tuple,
-) -> None:
+) -> MazeGenerator:
     """Run the interactive maze display loop.
 
     Args:
         width: maze width.
         height: maze height.
-        seed: random seed (None for random).
         perfect: whether maze is perfect.
         entry: entry cell coordinates.
         exit_: exit cell coordinates.
@@ -138,9 +137,9 @@ def user_interaction_loop(
     signal.signal(signal.SIGTSTP, handle_sigtstp)
     color_index: int = 0
     show_path: bool = False
-    current_seed = seed
+    # current_seed = seed
     # generate first maze
-    gen = MazeGenerator(width, height, current_seed, perfect)
+    gen = MazeGenerator(width, height, perfect)
     gen.generate()
     # solve it
     hex_grid = ["".join(row) for row in gen.generate_hex_values()]
@@ -180,8 +179,8 @@ def user_interaction_loop(
         if choice == "1":
             # regenerate with new random seed
             os.system("clear")
-            current_seed = random.randint(0, 99999)
-            gen = MazeGenerator(width, height, current_seed, perfect)
+            # current_seed = random.randint(0, 99999)
+            gen = MazeGenerator(width, height, perfect)
             gen.generate()
             hex_grid = ["".join(row) for row in gen.generate_hex_values()]
             path_str = solve(hex_grid, entry, exit_)
@@ -205,3 +204,7 @@ def user_interaction_loop(
         else:
             os.system("clear")
             print("\033[31mInvalid choice, please enter 1-4!!!!!\n\033[31m")
+            print("Invalid choice, please enter 1-4.")
+            break
+    return gen
+

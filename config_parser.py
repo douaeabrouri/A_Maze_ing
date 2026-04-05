@@ -99,12 +99,12 @@ def parsing(filepath: str) -> Optional[dict]:
     else:
         print(f"Error: PERFECT must be True or False, got '{raw['PERFECT']}'.")
         return None
-    if "SEED" in raw:
-        try:
-            config["SEED"] = int(raw["SEED"])
-        except ValueError:
-            print(f"Error: SEED must be an integer, got '{raw['SEED']}'.")
-            return None
-    else:
-        config["SEED"] = None
+    # if "SEED" in raw:
+    #     try:
+    #         config["SEED"] = int(raw["SEED"])
+    #     except ValueError:
+    #         print(f"Error: SEED must be an integer, got '{raw['SEED']}'.")
+    #         return None
+    # else:
+    #     config["SEED"] = None
     return config
