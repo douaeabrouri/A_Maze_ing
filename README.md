@@ -195,8 +195,8 @@ pip install mazegen-1.0.0-py3-none-any.whl
 
 | Member | Role |
 |---|---|
-| `yhamdaou` | Maze generation (DFS algorithm,  42 pattern, imperfect maze, hex output) |
-| `doabrour` | Solving (BFS shortest path), validation (wall coherence), display (ASCII terminal render, user interactions, colors), config parser, main wiring, Makefile, README |
+| `yhamdaou` | Maze generation (DFS algorithm,  42 pattern, imperfect maze, hex output), main, Makefile|
+| `doabrour` | Solving (BFS shortest path), display (ASCII terminal render, user interactions, colors), config parser, main, README |
 
 ### Planning
 
@@ -227,7 +227,7 @@ pip install mazegen-1.0.0-py3-none-any.whl
 
 - **VSCode** — code editor
 - **GitHub** — version control and collaboration
-- **Claude AI** — used for understanding concepts (BFS, bit masking, ANSI colors), debugging errors, and getting explanations on Python typing and flake8 rules
+- **Claude AI** — used for understanding concepts (BFS, bit masking, ANSI colors).
 
 ---
 
@@ -236,7 +236,7 @@ pip install mazegen-1.0.0-py3-none-any.whl
 ### Maze generation
 - [Maze generation algorithms - Wikipedia](https://en.wikipedia.org/wiki/Maze_generation_algorithm)
 - [Depth-First Search explanation](https://www.redblobgames.com/pathfinding/a-star/introduction.html)
-- [Jamis Buck's Maze algorithms](http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap)
+
 
 ### BFS pathfinding
 - [BFS - Wikipedia](https://en.wikipedia.org/wiki/Breadth-first_search)
@@ -254,6 +254,4 @@ pip install mazegen-1.0.0-py3-none-any.whl
 ### AI usage
 - **Claude AI** was used for:
   - Explaining BFS and DFS algorithms
-  - Understanding bit masking for hex wall encoding
-  - Understanding ANSI color codes for terminal display
-  - Reviewing and correcting code logic
+

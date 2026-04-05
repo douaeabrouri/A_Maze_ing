@@ -7,15 +7,15 @@ from typing import Optional
 from mazegen import MazeGenerator
 from maze_solver import solve
 
-COLORS = [
+COLORS: list = [
     "\033[38;2;229;208;255m",
     "\033[31m",
     "\033[32m",
     "\033[33m",
     "\033[37m",
 ]
-RESET = "\033[0m"
-COLOR_NAMES = ["purple", "Red", "Green", "Yellow", "White"]
+RESET: str = "\033[0m"
+COLOR_NAMES: list = ["purple", "Red", "Green", "Yellow", "White"]
 
 
 def print_maze(
