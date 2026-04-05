@@ -18,8 +18,6 @@ class MazeGenerator:
         self.pattern_cells: set = set()
 
     def generate(self) -> None:
-        # if self.seed is not None:
-        #     random.seed(self.seed)
         self.maze = []
         visited = []
 
@@ -218,25 +216,10 @@ class MazeGenerator:
             hex_values.append(hex_row)
         return hex_values
 
-    def write_output(self, filepath: str, entry: tuple, exit: tuple) -> None:
-        if self.maze is None:
-            raise ValueError("Maze not generated yet")
-
-        hex_values = self.generate_hex_values()
-        with open(filepath, "w") as f:
-            for y in range(self.height):
-                for x in range(self.width):
-                    f.write(hex_values[y][x])
-                f.write("\n")
-            f.write("\n")
-            f.write(str(entry) + "\n")
-            f.write(str(exit) + "\n")
-
     def generate_hex_maze(self) -> None:
         hex_values = self.generate_hex_values()
-        f = open("maze.txt", "w")
-        for x in range(self.height):
-            for y in range(self.width):
-                f.write(hex_values[x][y])
-            f.write("\n")
-        f.close()
+        with open("maze.txt", "w") as f:
+            for x in range(self.height):
+                for y in range(self.width):
+                    f.write(hex_values[x][y])
+                f.write("\n")

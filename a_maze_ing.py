@@ -15,7 +15,6 @@ if __name__ == "__main__":
     gen = user_interaction_loop(
         width=config["WIDTH"],
         height=config["HEIGHT"],
-        # seed=config["SEED"],
         perfect=config["PERFECT"],
         entry=config["ENTRY"],
         exit_=config["EXIT"],
@@ -29,4 +28,7 @@ if __name__ == "__main__":
     hex_grid = ["".join(row) for row in gen.generate_hex_values()]
 
     path = solve(hex_grid, config["ENTRY"], config["EXIT"])
-    f.write(path)
+    if path is None:
+        f.write("No path found\n")
+    else:
+        f.write(path + "\n")
