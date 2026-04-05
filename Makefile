@@ -19,5 +19,4 @@ lint:
 	@mypy . --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-def --check-untyped-defs
 
 build:
-	@pip install build
 	@python3 -m build --sdist

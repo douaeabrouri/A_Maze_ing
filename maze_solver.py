@@ -9,11 +9,9 @@ def solve(grid: list, entry: tuple, exit_: tuple) -> Optional[str]:
     width: int = len(grid[0])
     wall_mask: dict = {"N": 1, "E": 2, "S": 4, "W": 8}
     directions: dict = {"N": (0, -1), "E": (1, 0), "S": (0, 1), "W": (-1, 0)}
-
     queue: deque = deque([entry])
     visited: set = {entry}
     came_from: dict = {entry: None}
-
     while queue:
         x, y = queue.popleft()
         if (x, y) == exit_:
@@ -30,9 +28,8 @@ def solve(grid: list, entry: tuple, exit_: tuple) -> Optional[str]:
             visited.add((nx, ny))
             came_from[(nx, ny)] = ((x, y), direction)
             queue.append((nx, ny))
-
     if exit_ not in came_from:
-        print("ERROR, no path found between wntry and exit")
+        print("ERROR, no path found between entry and exit")
         return None
     path: list = []
     current: tuple = exit_
@@ -40,6 +37,5 @@ def solve(grid: list, entry: tuple, exit_: tuple) -> Optional[str]:
         parent, direction = came_from[current]
         path.append(direction)
         current = parent
-
     path.reverse()
     return "".join(path)

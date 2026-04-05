@@ -8,12 +8,10 @@ class MazeGenerator:
         self,
         width: int,
         height: int,
-        # seed: None | int = 0,
         perfect: bool = True
     ) -> None:
         self.width = width
         self.height = height
-        # self.seed = seed
         self.maze: Optional[list[list[dict[str, bool]]]] = None
         self.path = None
         self.perfect = perfect
@@ -175,49 +173,14 @@ class MazeGenerator:
 
                 elif direct == "S":
                     self.maze[y_remove + 1][x_remove]["N"] = True
-
-    # PRINT MAZE
-
-    def print_maze(self) -> None:
-        if self.maze is None:
-            raise ValueError("Maze not generated yet")
-
-        print("█" + "████" * self.width)
-
-        for y in range(self.height):
-
-            row_mid = ""
-            row_bot = ""
-
-            for x in range(self.width):
-
-                row_mid += "█" if self.maze[y][x]["W"] else " "
-
-                if all(self.maze[y][x][d] for d in ("N", "E", "S", "W")):
-                    row_mid += "   "
-                else:
-                    row_mid += "   "
-
-                row_bot += "█"
-                row_bot += "███" if self.maze[y][x]["S"] else "   "
-
-            row_mid += "█" if self.maze[y][self.width - 1]["E"] else " "
-            row_bot += "█"
-
-            print(row_mid)
-            print(row_bot)
-
     def generate_hex_values(self) -> list[list]:
         if self.maze is None:
             raise ValueError("Maze not generated yet")
-
         hex_values = []
-
         N_value = 1
         E_value = 2
         S_value = 4
         W_value = 8
-
         hex_format = [
             "0",
             "1",
@@ -274,4 +237,3 @@ class MazeGenerator:
                 f.write(hex_values[x][y])
             f.write("\n")
         f.close()
-        

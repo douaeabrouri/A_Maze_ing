@@ -12,7 +12,6 @@ def parsing(filepath: str) -> Optional[dict]:
         "OUTPUT_FILE",
         "PERFECT"
     ]
-    # Step 1: open the file
     try:
         with open(filepath, "r") as file:
             lines = file.readlines()
@@ -22,8 +21,6 @@ def parsing(filepath: str) -> Optional[dict]:
     except OSError as e:
         print(f"Error reading config file: {e}")
         return None
-
-    # Step 2: parse lines
     for line_num, line in enumerate(lines, start=1):
         line = line.strip()
         if not line or line.startswith("#"):
@@ -38,12 +35,10 @@ def parsing(filepath: str) -> Optional[dict]:
             print(f"Error: line {line_num} has an empty key or value.")
             return None
         raw[key] = value
-    # Step 3: check required keys
     for key in required_keys:
         if key not in raw:
             print(f"Error: missing required key '{key}' in config file.")
             return None
-    # Step 4: validate each value
     config: dict = {}
     try:
         config["WIDTH"] = int(raw["WIDTH"])
@@ -99,12 +94,4 @@ def parsing(filepath: str) -> Optional[dict]:
     else:
         print(f"Error: PERFECT must be True or False, got '{raw['PERFECT']}'.")
         return None
-    # if "SEED" in raw:
-    #     try:
-    #         config["SEED"] = int(raw["SEED"])
-    #     except ValueError:
-    #         print(f"Error: SEED must be an integer, got '{raw['SEED']}'.")
-    #         return None
-    # else:
-    #     config["SEED"] = None
     return config

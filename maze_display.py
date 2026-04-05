@@ -44,11 +44,8 @@ def print_maze(
         raise ValueError("Maze not generated yet")
     if path_cells is None:
         path_cells = set()
-
     W = wall_color
     R = RESET
-
-    # top border
     print(f"{W}██{'████' * width}{R}")
 
     for y in range(height):
@@ -57,33 +54,23 @@ def print_maze(
 
         for x in range(width):
             cell = maze[y][x]
-
-            # west wall or passage ← exactly 2 chars
             row_mid += f"{W}██{R}" if cell["W"] else "  "
-
-            # cell content ← exactly 2 chars
             if (x, y) == entry:
-                row_mid += "🦋"  # magenta EN
+                row_mid += "🦋"
             elif (x, y) == exit_:
-                row_mid += "🌺"  # red EX
+                row_mid += "🌺"
             elif show_path and (x, y) in path_cells:
-                row_mid += "🦋"  # yellow background
+                row_mid += "🦋"
             elif all(cell[d] for d in ("N", "E", "S", "W")):
-                row_mid += f"{W}▓▓{R}"  # 42 pattern
+                row_mid += f"{W}▓▓{R}"
             else:
-                row_mid += "  "  # empty ← 2 spaces!
-
-            # south wall ← exactly 2 chars
+                row_mid += "  "
             row_bot += f"{W}██{R}"
-            row_bot += f"{W}██{R}" if cell["S"] else "  "  # ══ not ███!
-
-        # east border
+            row_bot += f"{W}██{R}" if cell["S"] else "  "
         row_mid += f"{W}██{R}"
         row_bot += f"{W}██{R}"
-
         print(row_mid)
         print(row_bot)
-
 
 def path_to_cells(path: Optional[str], start: tuple) -> set:
     """Convert path string like 'EESS' to set of (x,y) cells.
@@ -108,17 +95,14 @@ def path_to_cells(path: Optional[str], start: tuple) -> set:
         cells.add((x, y))
     return cells
 
-
 def handle_sigtstp(signum: int, frame: object) -> None:
     os.system("clear")
     print("\033[31m Program suspended!⛔\033[31m")
     sys.exit(0)
 
-
 def user_interaction_loop(
     width: int,
     height: int,
-    # seed: Optional[int],
     perfect: bool,
     entry: tuple,
     exit_: tuple,
@@ -132,15 +116,11 @@ def user_interaction_loop(
         entry: entry cell coordinates.
         exit_: exit cell coordinates.
     """
-    # handle Ctrl+Z
     signal.signal(signal.SIGTSTP, handle_sigtstp)
     color_index: int = 0
     show_path: bool = False
-    # current_seed = seed
-    # generate first maze
     gen = MazeGenerator(width, height, perfect)
     gen.generate()
-    # solve it
     hex_grid = ["".join(row) for row in gen.generate_hex_values()]
     path_str = solve(hex_grid, entry, exit_)
     path_cells = path_to_cells(path_str, entry)
@@ -176,9 +156,7 @@ def user_interaction_loop(
             sys.exit(0)
 
         if choice == "1":
-            # regenerate with new random seed
             os.system("clear")
-            # current_seed = random.randint(0, 99999)
             gen = MazeGenerator(width, height, perfect)
             gen.generate()
             hex_grid = ["".join(row) for row in gen.generate_hex_values()]
@@ -205,4 +183,3 @@ def user_interaction_loop(
             print("\033[31mInvalid choice, please enter 1-4!!!!!\n\033[31m")
             break
     return gen
-
