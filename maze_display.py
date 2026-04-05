@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import random
 import os
 import signal
 import sys
@@ -204,7 +203,6 @@ def user_interaction_loop(
         else:
             os.system("clear")
             print("\033[31mInvalid choice, please enter 1-4!!!!!\n\033[31m")
-            print("Invalid choice, please enter 1-4.")
             break
     return gen
 

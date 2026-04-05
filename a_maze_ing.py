@@ -22,8 +22,8 @@ if __name__ == "__main__":
     gen.generate_hex_maze()
     f = open("maze.txt", "a")
     f.write("\n")
-    f.write(f"{config["ENTRY"][0]}, {config["ENTRY"][1]}\n")
-    f.write(f"{config["EXIT"][0]}, {config["EXIT"][1]}\n")
+    f.write(f"{config['ENTRY'][0]}, {config['ENTRY'][1]}\n")
+    f.write(f"{config['EXIT'][0]}, {config['EXIT'][1]}\n")
 
     hex_grid = ["".join(row) for row in gen.generate_hex_values()]
 

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 import random
 from typing import Optional
 
@@ -23,7 +22,6 @@ class MazeGenerator:
     def generate(self) -> None:
         # if self.seed is not None:
         #     random.seed(self.seed)
-
         self.maze = []
         visited = []
 
@@ -35,18 +33,13 @@ class MazeGenerator:
                 visit.append(False)
             self.maze.append(row)
             visited.append(visit)
-
         # build pattern cells before generating maze
         self.build_pattern_cells()
-
         # generate maze
         self.DFS(0, 0, visited)
-
         if not self.perfect:
             self.imperfect()
-
         # finally close the pattern cells
-	
         self.pattern_42()
 
     # 42 PATTERN
@@ -54,11 +47,9 @@ class MazeGenerator:
         if self.width >= 12 and self.height >= 9:
             cx = self.width // 2
             cy = self.height // 2
-
             def add_vertical(x: int, y: int) -> None:
                 for i in range(3):
                     self.pattern_cells.add((x, y + i))
-
             def add_horizontal(x: int, y: int) -> None:
                 for i in range(3):
                     self.pattern_cells.add((x + i, y))
@@ -114,45 +105,33 @@ class MazeGenerator:
                     and not visited[ny][nx]
                     and (nx, ny) not in self.pattern_cells
                 ):
-
                     self.maze[y][x][d] = False
                     self.maze[ny][nx][opposite] = False
-
                     stack.append((nx, ny))
                     moved = True
                     break
-
             if not moved:
                 stack.pop()
-
     # IMPERFECT MAZE OPTION
-
     def check_open_area(self, x: int, y: int) -> bool:
         if self.maze is None:
             raise ValueError("Maze not generated yet")
         for bx in range(x - 2, x + 1):
             for by in range(y - 2, y + 1):
-
                 if bx >= 0 and bx + 2 < self.width and by >= 0 \
                    and by + 2 < self.height:
-
                     close = False
-
                     for j in range(3):
                         for i in range(3):
-
                             if (self.maze[by + j][bx + i]["E"] and i != 2) or (
                                 self.maze[by + j][bx + i]["S"] and j != 2
                             ):
                                 close = True
                                 break
-
                         if close:
                             break
-
                     if not close:
                         return True
-
         return False
 
     def imperfect(self) -> None:

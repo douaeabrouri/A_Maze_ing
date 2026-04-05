@@ -70,7 +70,6 @@ ENTRY=0,0
 EXIT=19,14
 OUTPUT_FILE=maze.txt
 PERFECT=True
-SEED=42
 ```
 
 ### Keys
@@ -83,7 +82,6 @@ SEED=42
 | `EXIT` | End cell as `x,y` | tuple | ✅ |
 | `OUTPUT_FILE` | Output filename | string | ✅ |
 | `PERFECT` | Perfect maze? | `True`/`False` | ✅ |
-| `SEED` | Random seed | int | ❌ optional |
 
 ---
 
@@ -152,7 +150,6 @@ from maze_generator import MazeGenerator
 gen = MazeGenerator(
     width=20,
     height=15,
-    seed=42,        # optional, for reproducibility
     perfect=True    # True = perfect maze, False = imperfect
 )
 
@@ -182,7 +179,6 @@ gen.print_maze(
 |---|---|---|
 | `width` | int | number of columns |
 | `height` | int | number of rows |
-| `seed` | int or None | fixed seed for reproducibility |
 | `perfect` | bool | perfect or imperfect maze |
 
 ### Install as pip package
@@ -199,7 +195,7 @@ pip install mazegen-1.0.0-py3-none-any.whl
 
 | Member | Role |
 |---|---|
-| `yhamdaou` | Maze generation (DFS algorithm, seed reproducibility, 42 pattern, imperfect maze, hex output) |
+| `yhamdaou` | Maze generation (DFS algorithm,  42 pattern, imperfect maze, hex output) |
 | `doabrour` | Solving (BFS shortest path), validation (wall coherence), display (ASCII terminal render, user interactions, colors), config parser, main wiring, Makefile, README |
 
 ### Planning
@@ -257,9 +253,7 @@ pip install mazegen-1.0.0-py3-none-any.whl
 
 ### AI usage
 - **Claude AI** was used for:
-  - Explaining BFS and DFS algorithms step by step
+  - Explaining BFS and DFS algorithms
   - Understanding bit masking for hex wall encoding
-  - Debugging Python errors and type hints
   - Understanding ANSI color codes for terminal display
   - Reviewing and correcting code logic
-  - Writing and structuring this README
