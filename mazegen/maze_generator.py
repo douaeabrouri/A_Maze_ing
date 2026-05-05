@@ -272,7 +272,7 @@ class MazeGenerator:
             )
     
             print(f"\n  Player: {player}")
-            print("  Move with ↑↓←→ or WASD | Q to quit")
+            print("  Move with ↑←↓→ or WASD | Q to quit")
             if message:
                 print(f"  \033[31m{message}\033[0m")
     
@@ -293,7 +293,7 @@ class MazeGenerator:
             elif key in ("a", "A", "\033[D") and not self.maze[y][x]["W"]:
                 player = (x - 1, y)
             else:
-                message = "Can't move that way! 🌊"
+                message = "Can't move that way!"
     
         if player == exit_:
             os.system("clear")
