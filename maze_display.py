@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import time
 import signal
 import sys
 from typing import Optional
@@ -26,7 +27,8 @@ def print_maze(
     exit_: tuple = (-1, -1),
     path_cells: Optional[set] = None,
     show_path: bool = False,
-    wall_color: str = "\033[34m",
+    wall_color: str = "\033[38;2;229;208;255m",
+    player:Optional[tuple]= None
 ) -> None:
     """Print the maze visually in the terminal.
 
@@ -55,7 +57,9 @@ def print_maze(
         for x in range(width):
             cell = maze[y][x]
             row_mid += f"{W}██{R}" if cell["W"] else "  "
-            if (x, y) == entry:
+            if player and (x, y) == player:
+                row_mid += "🦋"
+            elif (x, y) == entry: 
                 row_mid += "🦋"
             elif (x, y) == exit_:
                 row_mid += "🌺"
@@ -70,7 +74,10 @@ def print_maze(
         row_mid += f"{W}██{R}"
         row_bot += f"{W}██{R}"
         print(row_mid)
+        # time.sleep(0.04)
         print(row_bot)
+        # time.sleep(0.04)
+
 
 
 def path_to_cells(path: Optional[str], start: tuple) -> set:
@@ -147,8 +154,9 @@ def user_interaction_loop(
                 f" (current: {COLORS[color_index]}"
                 f"{COLOR_NAMES[color_index]}{RESET})"
             )
-            print("4. Quit")
-            choice = input("Choice (1-4): ").strip()
+            print("4. play")
+            print("5. Quit")
+            choice = input("Choice (1-5): ").strip()
         except KeyboardInterrupt:
             os.system("clear")
             print("\033[31m\n Interrupted!🚫\033[31m")
@@ -173,6 +181,9 @@ def user_interaction_loop(
             os.system("clear")
             color_index = (color_index + 1) % len(COLORS)
         elif choice == "4":
+            os.system("clear")
+            gen.play(entry, exit_)
+        elif choice == "5":
             try:
                 with open("butterfly.txt", "r") as f:
                     butterfly = f.read()
@@ -183,6 +194,6 @@ def user_interaction_loop(
             break
         else:
             os.system("clear")
-            print("\033[31mInvalid choice, please enter 1-4!!!!!\n\033[31m")
+            print("\033[31mInvalid choice, please enter 1-5!!!!!\n\033[31m")
             break
     return gen

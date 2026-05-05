@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 import random
 from typing import Optional
-
+import tty
+import termios
+import sys
+# import time
 
 class MazeGenerator:
     def __init__(
@@ -29,16 +32,12 @@ class MazeGenerator:
                 visit.append(False)
             self.maze.append(row)
             visited.append(visit)
-        # build pattern cells before generating maze
         self.build_pattern_cells()
-        # generate maze
         self.DFS(0, 0, visited)
         if not self.perfect:
             self.imperfect()
-        # finally close the pattern cells
         self.pattern_42()
 
-    # 42 PATTERN
     def build_pattern_cells(self) -> None:
         if self.width >= 12 and self.height >= 9:
             cx = self.width // 2
@@ -69,7 +68,6 @@ class MazeGenerator:
             for d in ("N", "E", "S", "W"):
                 self.maze[y][x][d] = True
 
-    # MAZE GENERATION
     def DFS(self, start_x: int, start_y: int, visited: list[list]) -> None:
         if self.maze is None:
             raise ValueError("Maze not generated yet")
@@ -223,3 +221,80 @@ class MazeGenerator:
                 for y in range(self.width):
                     f.write(hex_values[x][y])
                 f.write("\n")
+    def get_key(self) -> str:
+        """Read a single keypress without Enter.
+    
+        Returns:
+            The key pressed as a string.
+        """
+        import select
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            ch = sys.stdin.read(1)
+            if ch == "\033":
+                # wait max 0.05 seconds for more chars
+                ready = select.select([sys.stdin], [], [], 0.05)[0]
+                if ready:
+                    ch2 = sys.stdin.read(1)
+                    ready = select.select([sys.stdin], [], [], 0.05)[0]
+                    if ready:
+                        ch3 = sys.stdin.read(1)
+                        return ch + ch2 + ch3
+                    return ch + ch2
+            return ch
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    def play(self, entry: tuple, exit_: tuple) -> None:
+        """Play the maze game.
+    
+        Args:
+            entry: starting cell.
+            exit_: target cell.
+        """
+        import os
+        from maze_display import print_maze
+    
+        player = entry
+        message = ""
+    
+        while player != exit_:
+            os.system("clear")
+    
+            print_maze(
+                maze=self.maze,
+                width=self.width,
+                height=self.height,
+                entry=entry,
+                exit_=exit_,
+                player=player
+            )
+    
+            print(f"\n  Player: {player}")
+            print("  Move with ↑↓←→ or WASD | Q to quit")
+            if message:
+                print(f"  \033[31m{message}\033[0m")
+    
+            key = self.get_key()
+    
+            if key in ("q", "Q"):
+                break
+    
+            x, y = player
+            message = ""
+
+            if key in ("w", "W", "\033[A") and not self.maze[y][x]["N"]:
+               player = (x, y - 1)
+            elif key in ("s", "S", "\033[B") and not self.maze[y][x]["S"]:
+                player = (x, y + 1)
+            elif key in ("d", "D", "\033[C") and not self.maze[y][x]["E"]:
+                player = (x + 1, y)
+            elif key in ("a", "A", "\033[D") and not self.maze[y][x]["W"]:
+                player = (x - 1, y)
+            else:
+                message = "Can't move that way! 🌊"
+    
+        if player == exit_:
+            os.system("clear")
+            print("\033[32m\n  🎉 You win! 🎉\033[0m")

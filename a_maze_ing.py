@@ -3,6 +3,7 @@
 from config_parser import parsing
 from maze_display import user_interaction_loop
 from maze_solver import solve
+# from mazegen.maze_generator import MazeGenerator
 import sys
 
 
@@ -19,8 +20,9 @@ if __name__ == "__main__":
         entry=config["ENTRY"],
         exit_=config["EXIT"],
     )
+
     gen.generate_hex_maze()
-    with open("maze.txt", "a") as f:
+    with open(config['OUTPUT_FILE'], "a") as f:
         f.write("\n")
         f.write(f"{config['ENTRY'][0]}, {config['ENTRY'][1]}\n")
         f.write(f"{config['EXIT'][0]}, {config['EXIT'][1]}\n")
