@@ -58,9 +58,9 @@ def print_maze(
             cell = maze[y][x]
             row_mid += f"{W}██{R}" if cell["W"] else "  "
             if player and (x, y) == player:
-                row_mid += "🦋"              # butterfly follows player
+                row_mid += "🦋"
             elif player and (x, y) == entry:
-                row_mid += "  "               # entry is empty when player moved
+                row_mid += "  "
             elif (x, y) == entry:
                 row_mid += "🦋"
             elif (x, y) == exit_:
